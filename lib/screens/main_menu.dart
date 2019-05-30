@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flut_stamp/market_data.dart';
-import 'package:flut_stamp/components/menu_item.dart';
-import 'package:flut_stamp/screens/ticker_screen.dart';
+import 'package:FlutStamp/market_data.dart';
+import 'package:FlutStamp/components/menu_item.dart';
+import 'package:FlutStamp/screens/ticker_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:FlutStamp/constants.dart';
 import 'dart:io' show Platform;
 
 class MainMenu extends StatefulWidget {
@@ -26,7 +27,7 @@ class _MainMenuState extends State<MainMenu> {
     }
 
     return DropdownButton<String>(
-      style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+      style: kMenuTextStyle,
       value: selectedMarket,
       items: dropdownItems,
       onChanged: (value) {
@@ -43,7 +44,7 @@ class _MainMenuState extends State<MainMenu> {
       pickerItems.add(
         Text(
           '${market.substring(0, 3)}/${market.substring(3)}'.toUpperCase(),
-          style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+          style: kMenuTextStyle,
         ),
       );
     }
@@ -73,13 +74,7 @@ class _MainMenuState extends State<MainMenu> {
           Container(
             margin: EdgeInsets.only(top: 15.0),
             child: Center(
-              child: Text(
-                'Select Market:',
-                style: TextStyle(
-                    color: Colors.green,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold),
-              ),
+              child: Text('Select Market:', style: kMenuInBetweenTextStyle),
             ),
           ),
           Container(

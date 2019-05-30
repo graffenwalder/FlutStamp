@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:FlutStamp/constants.dart';
 
 class MenuItemCard extends StatelessWidget {
   MenuItemCard({this.menuText, this.screen});
@@ -23,7 +24,7 @@ class MenuItemCard extends StatelessWidget {
         child: Center(
           child: Text(
             menuText,
-            style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+            style: kMenuTextStyle,
           ),
         ),
         margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),

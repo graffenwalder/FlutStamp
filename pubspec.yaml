@@ -1,4 +1,4 @@
-name: flut_stamp
+name: FlutStamp
 description: Uses different Bitstamp API calls
 
 version: 1.0.0+1
