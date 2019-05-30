@@ -27,11 +27,11 @@ class _OrderBookScreenState extends State<OrderBookScreen> {
   }
 
   List<Text> getOrderBook(String orderType) {
-    if (orderBookData.containsKey('bids')) {
+    if (orderBookData.containsKey(orderType)) {
       List<Text> appendList = [];
       int ordersPerContainer = 10;
-      if (orderBookData.length < ordersPerContainer) {
-        ordersPerContainer = orderBookData.length;
+      if (orderBookData[orderType].length < ordersPerContainer) {
+        ordersPerContainer = orderBookData[orderType].length;
       }
       for (int i = 0; i < ordersPerContainer; i++) {
         appendList.add(
