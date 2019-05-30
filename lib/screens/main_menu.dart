@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flut_stamp/constants.dart';
+import 'package:flut_stamp/market_data.dart';
 import 'package:flut_stamp/components/menu_item.dart';
 import 'package:flut_stamp/screens/ticker_screen.dart';
-import 'package:flut_stamp/screens/orderbook_screen.dart';
-import 'package:flut_stamp/screens/trade_history_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io' show Platform;
 
@@ -17,16 +15,18 @@ class _MainMenuState extends State<MainMenu> {
 
   DropdownButton<String> androidDropdown() {
     List<DropdownMenuItem<String>> dropdownItems = [];
-    for (String currency in kStampMarkets) {
+    for (String market in kStampMarkets) {
       dropdownItems.add(
         DropdownMenuItem(
-          child: Text(currency),
-          value: currency,
+          child: Text(
+              '${market.substring(0, 3)}/${market.substring(3)}'.toUpperCase()),
+          value: market,
         ),
       );
     }
 
     return DropdownButton<String>(
+      style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
       value: selectedMarket,
       items: dropdownItems,
       onChanged: (value) {
@@ -39,16 +39,21 @@ class _MainMenuState extends State<MainMenu> {
 
   CupertinoPicker iOSPicker() {
     List<Text> pickerItems = [];
-    for (String currency in kStampMarkets) {
-      pickerItems.add(Text(currency));
+    for (String market in kStampMarkets) {
+      pickerItems.add(
+        Text(
+          '${market.substring(0, 3)}/${market.substring(3)}'.toUpperCase(),
+          style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+        ),
+      );
     }
 
     return CupertinoPicker(
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: Color(0xff00cf5e),
       itemExtent: 32.0,
       onSelectedItemChanged: (selectedIndex) {
         setState(() {
-          selectedMarket = selectedMarket[selectedIndex];
+          selectedMarket = kStampMarkets[selectedIndex];
         });
       },
       children: pickerItems,
@@ -59,30 +64,43 @@ class _MainMenuState extends State<MainMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(kAppTitle),
+        title: Text('FlutStamp'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            height: 70.0,
-            alignment: Alignment.center,
-            padding: EdgeInsets.only(bottom: 10.0),
-            color: Colors.green,
-            child: Platform.isIOS ? iOSPicker() : androidDropdown(),
+            margin: EdgeInsets.only(top: 15.0),
+            child: Center(
+              child: Text(
+                'Select Market:',
+                style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Container(
+            height: 60.0,
+            child: Center(
+              child: Platform.isIOS ? iOSPicker() : androidDropdown(),
+            ),
+            margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            padding: EdgeInsets.symmetric(vertical: 7.0),
+            decoration: BoxDecoration(
+              color: Color(0xff00cf5e),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          SizedBox(
+            height: 280.0,
           ),
           MenuItemCard(
-            menuText: 'Ticker Info',
+            menuText: 'Get Market Info',
             screen: TickerScreen(selectedMarket),
           ),
-          MenuItemCard(
-            menuText: 'Orderbook Info',
-            screen: OrderBookScreen(selectedMarket),
-          ),
-          MenuItemCard(
-            menuText: 'Trade History',
-            screen: TradeHistoryScreen(selectedMarket),
-          )
         ],
       ),
     );
