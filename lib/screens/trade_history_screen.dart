@@ -30,7 +30,11 @@ class _TradeHistoryScreenState extends State<TradeHistoryScreen> {
   List<Text> getTransactions() {
     if (tradeHistoryData.length > 0) {
       List<Text> appendList = [];
-      for (int i = 0; i < 25; i++) {
+      int transactionsOnScreen = 25;
+      if (tradeHistoryData.length < transactionsOnScreen) {
+        transactionsOnScreen = tradeHistoryData.length;
+      }
+      for (int i = 0; i < transactionsOnScreen; i++) {
         if (tradeHistoryData[i]['type'] == '0') {
           appendList.add(Text(
             'Bought: ${tradeHistoryData[i]['amount']} ${widget.selectedMarket.substring(0, 3)} @  ${tradeHistoryData[i]['price']} ${widget.selectedMarket.substring(3)}',

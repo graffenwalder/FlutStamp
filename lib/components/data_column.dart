@@ -8,7 +8,9 @@ class CryptoDataColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(children: childList),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: childList),
       margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
       decoration: BoxDecoration(

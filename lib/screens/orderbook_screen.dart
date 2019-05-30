@@ -26,10 +26,14 @@ class _OrderBookScreenState extends State<OrderBookScreen> {
     }
   }
 
-  List<Text> getOrderbook(String orderType) {
+  List<Text> getOrderBook(String orderType) {
     if (orderBookData.containsKey('bids')) {
       List<Text> appendList = [];
-      for (int i = 0; i < 10; i++) {
+      int ordersPerContainer = 10;
+      if (orderBookData.length < ordersPerContainer) {
+        ordersPerContainer = orderBookData.length;
+      }
+      for (int i = 0; i < ordersPerContainer; i++) {
         appendList.add(
           Text(
             '${orderBookData[orderType][i][1]} ${widget.selectedMarket.substring(0, 3)} @ ${orderBookData[orderType][i][0]} ${widget.selectedMarket.substring(3)}',
@@ -39,7 +43,12 @@ class _OrderBookScreenState extends State<OrderBookScreen> {
       }
       return appendList;
     } else {
-      return [Text('?'), Text('?'), Text('?'), Text('?')];
+      return [
+        Text('????? @ ?????'),
+        Text('????? @ ?????'),
+        Text('????? @ ?????'),
+        Text('????? @ ?????')
+      ];
     }
   }
 
@@ -67,14 +76,14 @@ class _OrderBookScreenState extends State<OrderBookScreen> {
                 style: kMenuInBetweenTextStyle,
               ),
               CryptoDataColumn(
-                childList: getOrderbook('bids'),
+                childList: getOrderBook('bids'),
               ),
               Text(
                 'Asks',
                 style: kMenuInBetweenTextStyle,
               ),
               CryptoDataColumn(
-                childList: getOrderbook('asks'),
+                childList: getOrderBook('asks'),
               )
             ],
           ),

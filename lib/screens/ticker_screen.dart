@@ -4,6 +4,7 @@ import 'package:flut_stamp/components/menu_item.dart';
 import 'package:flut_stamp/screens/orderbook_screen.dart';
 import 'package:flut_stamp/screens/trade_history_screen.dart';
 import 'package:flut_stamp/constants.dart';
+import 'package:flut_stamp/components/ticker_text_widget.dart';
 
 class TickerScreen extends StatefulWidget {
   TickerScreen(this.selectedMarket);
@@ -13,14 +14,14 @@ class TickerScreen extends StatefulWidget {
 }
 
 class _TickerScreenState extends State<TickerScreen> {
-  Map marketInfo = {};
+  Map marketInfoMap = {};
 
   void getData() async {
     try {
       Map rawData =
           await MarketData().getMarketData('ticker', widget.selectedMarket);
       setState(() {
-        marketInfo = rawData;
+        marketInfoMap = rawData;
       });
     } catch (e) {
       print(e);
@@ -61,8 +62,8 @@ class _TickerScreenState extends State<TickerScreen> {
                     height: 15.0,
                   ),
                   Text(
-                    marketInfo.containsKey('last')
-                        ? marketInfo['last'] +
+                    marketInfoMap.containsKey('last')
+                        ? marketInfoMap['last'] +
                             ' ' +
                             widget.selectedMarket.substring(3).toUpperCase()
                         : 'Waiting for Market Info',
@@ -76,9 +77,9 @@ class _TickerScreenState extends State<TickerScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Text(
-                        marketInfo.containsKey('last')
-                            ? (double.parse(marketInfo['open']) -
-                                        double.parse(marketInfo['last']))
+                        marketInfoMap.containsKey('last')
+                            ? (double.parse(marketInfoMap['open']) -
+                                        double.parse(marketInfoMap['last']))
                                     .toStringAsFixed(2) +
                                 ' ' +
                                 widget.selectedMarket.substring(3).toUpperCase()
@@ -86,10 +87,12 @@ class _TickerScreenState extends State<TickerScreen> {
                         style: kTickerChangeTextStyle,
                       ),
                       Text(
-                        marketInfo.containsKey('last')
-                            ? ((double.parse(marketInfo['open']) -
-                                            double.parse(marketInfo['last'])) /
-                                        double.parse(marketInfo['open']))
+                        marketInfoMap.containsKey('last')
+                            ? ((double.parse(marketInfoMap['open']) -
+                                            double.parse(
+                                                marketInfoMap['last'])) /
+                                        double.parse(marketInfoMap['open']) *
+                                        100)
                                     .toStringAsFixed(2) +
                                 ' %'
                             : '?',
@@ -106,49 +109,35 @@ class _TickerScreenState extends State<TickerScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            marketInfo.containsKey('high')
-                                ? 'High: ' + marketInfo['high']
-                                : '?',
-                            style: kTickerChangeTextStyle,
-                          ),
-                          Text(
-                            marketInfo.containsKey('bid')
-                                ? 'Bid: ' + marketInfo['bid']
-                                : '?',
-                            style: kTickerChangeTextStyle,
-                          ),
-                          Text(
-                            marketInfo.containsKey('vwap')
-                                ? 'VWAP: ' + marketInfo['vwap']
-                                : '?',
-                            style: kTickerChangeTextStyle,
-                          )
+                          TickerTextWidget(
+                              marketInfoMap: marketInfoMap,
+                              marketMapKey: 'high',
+                              preText: 'High: '),
+                          TickerTextWidget(
+                              marketInfoMap: marketInfoMap,
+                              marketMapKey: 'bid',
+                              preText: 'Bid: '),
+                          TickerTextWidget(
+                              marketInfoMap: marketInfoMap,
+                              marketMapKey: 'vwap',
+                              preText: 'VWAP: ')
                         ],
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            marketInfo.containsKey('low')
-                                ? 'Low: ' + marketInfo['low']
-                                : '?',
-                            style: kTickerChangeTextStyle,
-                          ),
-                          Text(
-                            marketInfo.containsKey('ask')
-                                ? 'Ask: ' + marketInfo['ask']
-                                : '?',
-                            style: kTickerChangeTextStyle,
-                          ),
-                          Text(
-                            marketInfo.containsKey('volume')
-                                ? 'Volume: ' +
-                                    double.parse(marketInfo['volume'])
-                                        .toStringAsFixed(2)
-                                : '?',
-                            style: kTickerChangeTextStyle,
-                          )
+                          TickerTextWidget(
+                              marketInfoMap: marketInfoMap,
+                              marketMapKey: 'low',
+                              preText: 'Low: '),
+                          TickerTextWidget(
+                              marketInfoMap: marketInfoMap,
+                              marketMapKey: 'ask',
+                              preText: 'Ask: '),
+                          TickerTextWidget(
+                              marketInfoMap: marketInfoMap,
+                              marketMapKey: 'volume',
+                              preText: 'Volume: '),
                         ],
                       )
                     ],
