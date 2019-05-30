@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:FlutStamp/market_data.dart';
-import 'package:FlutStamp/constants.dart';
-import 'package:FlutStamp/components/data_column.dart';
+import 'package:flut_stamp/market_data.dart';
+import 'package:flut_stamp/constants.dart';
+import 'package:flut_stamp/components/data_column.dart';
 
 class OrderBookScreen extends StatefulWidget {
   OrderBookScreen(this.selectedMarket);

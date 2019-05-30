@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:FlutStamp/market_data.dart';
-import 'package:FlutStamp/components/menu_item.dart';
-import 'package:FlutStamp/screens/orderbook_screen.dart';
-import 'package:FlutStamp/screens/trade_history_screen.dart';
-import 'package:FlutStamp/constants.dart';
+import 'package:flut_stamp/market_data.dart';
+import 'package:flut_stamp/components/menu_item.dart';
+import 'package:flut_stamp/screens/orderbook_screen.dart';
+import 'package:flut_stamp/screens/trade_history_screen.dart';
+import 'package:flut_stamp/constants.dart';
 
 class TickerScreen extends StatefulWidget {
   TickerScreen(this.selectedMarket);

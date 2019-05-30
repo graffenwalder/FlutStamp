@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:FlutStamp/constants.dart';
+import 'package:flut_stamp/constants.dart';
 
 class MenuItemCard extends StatelessWidget {
   MenuItemCard({this.menuText, this.screen});
