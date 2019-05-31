@@ -15,7 +15,8 @@ class TickerTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       marketInfoMap.containsKey(marketMapKey)
-          ? preText + marketInfoMap[marketMapKey]
+          ? preText +
+              (double.parse(marketInfoMap[marketMapKey]).toStringAsFixed(2))
           : '?',
       style: kTickerChangeTextStyle,
     );

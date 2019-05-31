@@ -37,12 +37,12 @@ class _TradeHistoryScreenState extends State<TradeHistoryScreen> {
       for (int i = 0; i < transactionsOnScreen; i++) {
         if (tradeHistoryData[i]['type'] == '0') {
           appendList.add(Text(
-            'Bought: ${tradeHistoryData[i]['amount']} ${widget.selectedMarket.substring(0, 3)} @  ${tradeHistoryData[i]['price']} ${widget.selectedMarket.substring(3)}',
+            'Bought: ${double.parse(tradeHistoryData[i]['amount']).toStringAsFixed(4)} ${widget.selectedMarket.substring(0, 3)} @  ${tradeHistoryData[i]['price']} ${widget.selectedMarket.substring(3)}',
             style: kOrderBookTextStyle,
           ));
         } else {
           appendList.add(Text(
-            'Sold:   ${tradeHistoryData[i]['amount']} ${widget.selectedMarket.substring(0, 3)} @  ${tradeHistoryData[i]['price']} ${widget.selectedMarket.substring(3)}',
+            'Sold:   ${double.parse(tradeHistoryData[i]['amount']).toStringAsFixed(4)} ${widget.selectedMarket.substring(0, 3)} @  ${tradeHistoryData[i]['price']} ${widget.selectedMarket.substring(3)}',
             style: kOrderBookTextStyle,
           ));
         }

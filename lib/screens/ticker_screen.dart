@@ -56,7 +56,7 @@ class _TickerScreenState extends State<TickerScreen> {
                     '${widget.selectedMarket.substring(0, 3)}/${widget.selectedMarket.substring(3)}'
                         .toUpperCase(),
                     style:
-                        TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 15.0,
@@ -66,20 +66,26 @@ class _TickerScreenState extends State<TickerScreen> {
                         ? marketInfoMap['last'] +
                             ' ' +
                             widget.selectedMarket.substring(3).toUpperCase()
-                        : 'Waiting for Market Info',
+                        : 'Getting info...',
                     style:
-                        TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 15.0,
                   ),
+                  TickerTextWidget(
+                    marketInfoMap: marketInfoMap,
+                    marketMapKey: 'open',
+                    preText: 'Open: ',
+                  ),
+                  SizedBox(height: 10.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Text(
                         marketInfoMap.containsKey('last')
-                            ? (double.parse(marketInfoMap['open']) -
-                                        double.parse(marketInfoMap['last']))
+                            ? (double.parse(marketInfoMap['last']) -
+                                        double.parse(marketInfoMap['open']))
                                     .toStringAsFixed(2) +
                                 ' ' +
                                 widget.selectedMarket.substring(3).toUpperCase()
@@ -88,9 +94,9 @@ class _TickerScreenState extends State<TickerScreen> {
                       ),
                       Text(
                         marketInfoMap.containsKey('last')
-                            ? ((double.parse(marketInfoMap['open']) -
+                            ? ((double.parse(marketInfoMap['last']) -
                                             double.parse(
-                                                marketInfoMap['last'])) /
+                                                marketInfoMap['open'])) /
                                         double.parse(marketInfoMap['open']) *
                                         100)
                                     .toStringAsFixed(2) +
