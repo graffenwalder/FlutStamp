@@ -77,6 +77,8 @@ class _TickerScreenState extends State<TickerScreen> {
                     marketInfoMap: marketInfoMap,
                     marketMapKey: 'open',
                     preText: 'Open: ',
+                    decimalPoints:
+                        widget.selectedMarket.substring(3) == 'btc' ? 6 : 2,
                   ),
                   SizedBox(height: 10.0),
                   Row(
@@ -86,7 +88,11 @@ class _TickerScreenState extends State<TickerScreen> {
                         marketInfoMap.containsKey('last')
                             ? (double.parse(marketInfoMap['last']) -
                                         double.parse(marketInfoMap['open']))
-                                    .toStringAsFixed(2) +
+                                    .toStringAsFixed(
+                                        widget.selectedMarket.substring(3) ==
+                                                'btc'
+                                            ? 6
+                                            : 2) +
                                 ' ' +
                                 widget.selectedMarket.substring(3).toUpperCase()
                             : '?',
@@ -116,34 +122,60 @@ class _TickerScreenState extends State<TickerScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           TickerTextWidget(
-                              marketInfoMap: marketInfoMap,
-                              marketMapKey: 'high',
-                              preText: 'High: '),
+                            marketInfoMap: marketInfoMap,
+                            marketMapKey: 'high',
+                            preText: 'High: ',
+                            decimalPoints:
+                                widget.selectedMarket.substring(3) == 'btc'
+                                    ? 6
+                                    : 2,
+                          ),
                           TickerTextWidget(
-                              marketInfoMap: marketInfoMap,
-                              marketMapKey: 'bid',
-                              preText: 'Bid: '),
+                            marketInfoMap: marketInfoMap,
+                            marketMapKey: 'bid',
+                            preText: 'Bid: ',
+                            decimalPoints:
+                                widget.selectedMarket.substring(3) == 'btc'
+                                    ? 6
+                                    : 2,
+                          ),
                           TickerTextWidget(
-                              marketInfoMap: marketInfoMap,
-                              marketMapKey: 'vwap',
-                              preText: 'VWAP: ')
+                            marketInfoMap: marketInfoMap,
+                            marketMapKey: 'vwap',
+                            preText: 'VWAP: ',
+                            decimalPoints:
+                                widget.selectedMarket.substring(3) == 'btc'
+                                    ? 6
+                                    : 2,
+                          )
                         ],
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           TickerTextWidget(
-                              marketInfoMap: marketInfoMap,
-                              marketMapKey: 'low',
-                              preText: 'Low: '),
+                            marketInfoMap: marketInfoMap,
+                            marketMapKey: 'low',
+                            preText: 'Low: ',
+                            decimalPoints:
+                                widget.selectedMarket.substring(3) == 'btc'
+                                    ? 6
+                                    : 2,
+                          ),
                           TickerTextWidget(
-                              marketInfoMap: marketInfoMap,
-                              marketMapKey: 'ask',
-                              preText: 'Ask: '),
+                            marketInfoMap: marketInfoMap,
+                            marketMapKey: 'ask',
+                            preText: 'Ask: ',
+                            decimalPoints:
+                                widget.selectedMarket.substring(3) == 'btc'
+                                    ? 6
+                                    : 2,
+                          ),
                           TickerTextWidget(
                               marketInfoMap: marketInfoMap,
                               marketMapKey: 'volume',
-                              preText: 'Volume: '),
+                              preText: 'Volume: ',
+                              decimalPoints: 2),
                         ],
                       )
                     ],
