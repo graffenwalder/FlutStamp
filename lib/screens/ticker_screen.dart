@@ -28,6 +28,13 @@ class _TickerScreenState extends State<TickerScreen> {
     }
   }
 
+  bool marketIsBTC() {
+    if (widget.selectedMarket.substring(3) == 'btc') {
+      return true;
+    }
+    return false;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -77,8 +84,7 @@ class _TickerScreenState extends State<TickerScreen> {
                     marketInfoMap: marketInfoMap,
                     marketMapKey: 'open',
                     preText: 'Open: ',
-                    decimalPoints:
-                        widget.selectedMarket.substring(3) == 'btc' ? 6 : 2,
+                    decimalPoints: marketIsBTC() ? 6 : 2,
                   ),
                   SizedBox(height: 10.0),
                   Row(
@@ -88,11 +94,7 @@ class _TickerScreenState extends State<TickerScreen> {
                         marketInfoMap.containsKey('last')
                             ? (double.parse(marketInfoMap['last']) -
                                         double.parse(marketInfoMap['open']))
-                                    .toStringAsFixed(
-                                        widget.selectedMarket.substring(3) ==
-                                                'btc'
-                                            ? 6
-                                            : 2) +
+                                    .toStringAsFixed(marketIsBTC() ? 6 : 2) +
                                 ' ' +
                                 widget.selectedMarket.substring(3).toUpperCase()
                             : '?',
@@ -125,28 +127,19 @@ class _TickerScreenState extends State<TickerScreen> {
                             marketInfoMap: marketInfoMap,
                             marketMapKey: 'high',
                             preText: 'High: ',
-                            decimalPoints:
-                                widget.selectedMarket.substring(3) == 'btc'
-                                    ? 6
-                                    : 2,
+                            decimalPoints: marketIsBTC() ? 6 : 2,
                           ),
                           TickerTextWidget(
                             marketInfoMap: marketInfoMap,
                             marketMapKey: 'bid',
                             preText: 'Bid: ',
-                            decimalPoints:
-                                widget.selectedMarket.substring(3) == 'btc'
-                                    ? 6
-                                    : 2,
+                            decimalPoints: marketIsBTC() ? 6 : 2,
                           ),
                           TickerTextWidget(
                             marketInfoMap: marketInfoMap,
                             marketMapKey: 'vwap',
                             preText: 'VWAP: ',
-                            decimalPoints:
-                                widget.selectedMarket.substring(3) == 'btc'
-                                    ? 6
-                                    : 2,
+                            decimalPoints: marketIsBTC() ? 6 : 2,
                           )
                         ],
                       ),
@@ -157,19 +150,13 @@ class _TickerScreenState extends State<TickerScreen> {
                             marketInfoMap: marketInfoMap,
                             marketMapKey: 'low',
                             preText: 'Low: ',
-                            decimalPoints:
-                                widget.selectedMarket.substring(3) == 'btc'
-                                    ? 6
-                                    : 2,
+                            decimalPoints: marketIsBTC() ? 6 : 2,
                           ),
                           TickerTextWidget(
                             marketInfoMap: marketInfoMap,
                             marketMapKey: 'ask',
                             preText: 'Ask: ',
-                            decimalPoints:
-                                widget.selectedMarket.substring(3) == 'btc'
-                                    ? 6
-                                    : 2,
+                            decimalPoints: marketIsBTC() ? 6 : 2,
                           ),
                           TickerTextWidget(
                               marketInfoMap: marketInfoMap,
