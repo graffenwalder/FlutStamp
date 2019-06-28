@@ -4,6 +4,7 @@ import 'package:flut_stamp/components/menu_item.dart';
 import 'package:flut_stamp/screens/ticker_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flut_stamp/constants.dart';
+import 'trade_stream_screen.dart';
 import 'dart:io' show Platform;
 
 class MainMenu extends StatefulWidget {
@@ -90,12 +91,16 @@ class _MainMenuState extends State<MainMenu> {
             ),
           ),
           SizedBox(
-            height: 280.0,
+            height: 180.0,
           ),
           MenuItemCard(
             menuText: 'Get Market Info',
             screen: TickerScreen(selectedMarket),
           ),
+          MenuItemCard(
+            menuText: 'Get live Data',
+            screen: TradeStream(selectedMarket),
+          )
         ],
       ),
     );
