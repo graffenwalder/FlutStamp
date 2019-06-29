@@ -19,10 +19,6 @@ class _TradeStreamState extends State<TradeStream> {
   void initState() {
     super.initState();
     channel = IOWebSocketChannel.connect('wss://ws.bitstamp.net');
-    subscribe();
-  }
-
-  void subscribe() {
     channel.sink.add(jsonEncode({
       "event": "bts:subscribe",
       "data": {"channel": "live_trades_${widget.selectedMarket}"}
@@ -40,20 +36,21 @@ class _TradeStreamState extends State<TradeStream> {
 
   @override
   Widget build(BuildContext context) {
+    final String _crypto = widget.selectedMarket.substring(0, 3);
+    final String _market = widget.selectedMarket.substring(3);
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-              '${widget.selectedMarket.substring(0, 3)}/${widget.selectedMarket.substring(3)}'
-                      .toUpperCase() +
-                  ' Live Trade'),
+          title: Text('$_crypto/$_market'.toUpperCase() + ' Live Trade'),
         ),
         body: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               StreamBuilder(
                 stream: channel.stream,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   String text = '';
+
                   bool hasPriceData() {
                     if (jsonDecode(snapshot.data)['data']['price_str'] !=
                         null) {
@@ -66,7 +63,8 @@ class _TradeStreamState extends State<TradeStream> {
                     text = 'No data...';
                   } else if (hasPriceData()) {
                     text = jsonDecode(snapshot.data)['data']['price_str'] +
-                        ' ${widget.selectedMarket.substring(3).toUpperCase()}';
+                        ' ' +
+                        _market.toUpperCase();
                   } else {
                     text = 'No trades yet...';
                   }
@@ -80,7 +78,7 @@ class _TradeStreamState extends State<TradeStream> {
                       margin: EdgeInsets.symmetric(
                           horizontal: 10.0, vertical: 10.0),
                       padding: EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 17.0),
+                          horizontal: 40.0, vertical: 30.0),
                       decoration: BoxDecoration(
                         color: Color(0xff00b347),
                         borderRadius: BorderRadius.circular(10.0),

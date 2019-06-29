@@ -70,37 +70,52 @@ class _MainMenuState extends State<MainMenu> {
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(top: 15.0),
-            child: Center(
-              child: Text('Select Market:', style: kMenuInBetweenTextStyle),
+          Expanded(
+            flex: 2,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 15.0),
+                  child: Center(
+                    child:
+                        Text('Select Market:', style: kMenuInBetweenTextStyle),
+                  ),
+                ),
+                Container(
+                  height: 60.0,
+                  child: Center(
+                    child: Platform.isIOS ? iOSPicker() : androidDropdown(),
+                  ),
+                  margin:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                  padding: EdgeInsets.symmetric(vertical: 7.0),
+                  decoration: BoxDecoration(
+                    color: Color(0xff00cf5e),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                )
+              ],
             ),
           ),
-          Container(
-            height: 60.0,
-            child: Center(
-              child: Platform.isIOS ? iOSPicker() : androidDropdown(),
+          Expanded(
+            flex: 3,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                MenuItemCard(
+                  menuText: 'Get Market Info',
+                  screen: TickerScreen(selectedMarket),
+                ),
+                MenuItemCard(
+                  menuText: 'Get Live Data',
+                  screen: TradeStream(selectedMarket),
+                )
+              ],
             ),
-            margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-            padding: EdgeInsets.symmetric(vertical: 7.0),
-            decoration: BoxDecoration(
-              color: Color(0xff00cf5e),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
           ),
-          SizedBox(
-            height: 180.0,
-          ),
-          MenuItemCard(
-            menuText: 'Get Market Info',
-            screen: TickerScreen(selectedMarket),
-          ),
-          MenuItemCard(
-            menuText: 'Get live Data',
-            screen: TradeStream(selectedMarket),
-          )
         ],
       ),
     );

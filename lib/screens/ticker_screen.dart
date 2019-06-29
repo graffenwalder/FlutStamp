@@ -43,9 +43,11 @@ class _TickerScreenState extends State<TickerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final String _crypto = widget.selectedMarket.substring(0, 3);
+    final String _market = widget.selectedMarket.substring(3);
     return Scaffold(
         appBar: AppBar(
-          title: Text('Ticker Info'),
+          title: Text('$_crypto/$_market'.toUpperCase() + ' Ticker Info'),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -60,8 +62,7 @@ class _TickerScreenState extends State<TickerScreen> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    '${widget.selectedMarket.substring(0, 3)}/${widget.selectedMarket.substring(3)}'
-                        .toUpperCase(),
+                    '$_crypto/$_market'.toUpperCase(),
                     style:
                         TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
                   ),
@@ -70,9 +71,7 @@ class _TickerScreenState extends State<TickerScreen> {
                   ),
                   Text(
                     marketInfoMap.containsKey('last')
-                        ? marketInfoMap['last'] +
-                            ' ' +
-                            widget.selectedMarket.substring(3).toUpperCase()
+                        ? marketInfoMap['last'] + ' ' + _market.toUpperCase()
                         : 'Getting info...',
                     style:
                         TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
@@ -96,7 +95,7 @@ class _TickerScreenState extends State<TickerScreen> {
                                         double.parse(marketInfoMap['open']))
                                     .toStringAsFixed(marketIsBTC() ? 6 : 2) +
                                 ' ' +
-                                widget.selectedMarket.substring(3).toUpperCase()
+                                _market.toUpperCase()
                             : '?',
                         style: kTickerChangeTextStyle,
                       ),
